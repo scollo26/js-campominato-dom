@@ -1,4 +1,11 @@
-
+// Consegna
+// Copiamo la griglia fatta ieri nella nuova repo e aggiungiamo la logica del gioco (attenzione: non bisogna copiare tutta la cartella dell'esercizio ma solo l'index.html, e le cartelle js/ css/ con i relativi script e fogli di stile, per evitare problemi con l'inizializzazione di git). L'utente indica un livello di difficoltà in base al quale viene generata una griglia di gioco quadrata, in cui ogni cella contiene un numero tra quelli compresi in un range:
+// con difficoltà 1 => tra 1 e 100
+// con difficoltà 2 => tra 1 e 81
+// con difficoltà 3 => tra 1 e 49
+// Il computer deve generare 16 numeri casuali nello stesso range della difficoltà prescelta: le bombe. :bomba:
+// I numeri nella lista delle bombe non possono essere duplicati.
+// In seguito l'utente clicca su una cella: se il numero è presente nella lista dei numeri generati - abbiamo calpestato una bomba - la cella si colora di rosso e la partita termina, altrimenti la cella cliccata si colora di azzurro e l'utente può continuare a cliccare sulle altre celle. La partita termina quando il giocatore clicca su una bomba o raggiunge il numero massimo possibile di numeri consentiti. Al termine della partita il software deve comunicare il punteggio, cioè il numero di volte che l’utente ha cliccato su una cella che non era una b.
 
 
 let containerCell = document.querySelector('.container-cell');
@@ -13,14 +20,23 @@ console.log(button);
 // let maxNumber = numberSquare;
 
 
-// function arrayNumber(min, max) {
+function arrayNumber(min, max) {
     
-//     return Math.floor(Math.random() * (max - min + 1)) + min;
-// }
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
 
 // button
 
 button.addEventListener('click', function() {
+
+
+    let bomb = [];
+        while(bomb.length < 16){
+        let random = Math.floor(Math.random() * 100) + 1;
+        if(bomb.indexOf(random) === -1) bomb.push(random);
+        }
+        console.log(bomb);
+    
 
     const select = document.getElementById('level');
 
@@ -32,12 +48,19 @@ button.addEventListener('click', function() {
         for (let i = 1; i <= 100; i++) {
             const square = document.createElement('div');
             square.classList.add('easy');
-            square.append(i);
-            containerCell.append(square);
+            square.append(i );
+            containerCell.append(square)
 
             // click-cambia-colore-blu
             square.addEventListener('click', function(){
-                this.classList.add('blue');
+                if ( bomb.includes(i)){
+                    
+                 
+
+                }else{
+                    this.classList.add('blue');
+                }
+                
             });
         
         }
@@ -80,6 +103,19 @@ button.addEventListener('click', function() {
     }
     
 });
+
+
+// function arrayNumber(numberQ) {
+
+//     let arr = [];
+//     while(arr.length < numberQ){
+//     let random = Math.floor(Math.random() * 100) + 1;
+//     if(arr.indexOf(random) === -1) arr.push(random);
+//     }
+//     console.log(arr);
+    
+//     return arr;
+// }
 
 
 // Esercizio-con-funzione
@@ -125,7 +161,6 @@ button.addEventListener('click', function() {
 //     }
 
 // });
-
 
 
 
