@@ -14,49 +14,68 @@ const select = document.getElementById('level');
 console.log(containerCell);
 console.log(button);
 
-// const row = 10;
-// const col = 10;
-// let numberSquare = row * col;
-// let maxNumber = numberSquare;
+// funzione-per-creare-numeri-random-listNumbers
+function bombFunc(min, max) {
 
+    let listNumbers = [];
 
-function arrayNumber(min, max) {
+    // ciclo-per-inserire-16-numeri
+    for(let i = 0; i < 16; i ++){
+        min = Math.ceil(min);
+        max = Math.floor(max);
+
+        let element = listNumbers[i];
+        element = Math.floor(Math.random() * (max - min + 1)) + min;
+
+        // controllo-se-il-numero-esiste-nell'arrey
+        while(listNumbers.includes(element)){
+            element = Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+        listNumbers.push(element);
+    }
     
-    return Math.floor(Math.random() * (max - min + 1)) + min;
+    return listNumbers;
 }
 
 // button
 
 button.addEventListener('click', function() {
-
-
-    let bomb = [];
-        while(bomb.length < 16){
-        let random = Math.floor(Math.random() * 100) + 1;
-        if(bomb.indexOf(random) === -1) bomb.push(random);
-        }
-        console.log(bomb);
+    // funzioni con numeri random con min e max
+    const bombEasy = bombFunc(1, 100);
+    const bombMedium = bombFunc(1, 81);
+    const bombHard = bombFunc(1, 49);
+    console.log("array easy " + bombEasy);
+    console.log("array medium " + bombMedium );
+    console.log("array hard " + bombHard);
     
-
+    
     const select = document.getElementById('level');
 
     // easy
 
     if( select.value == "easy"){
-        containerCell.innerHTML ='';
 
+        // pulizia della pagina html
+        containerCell.innerHTML ='';
+        
         for (let i = 1; i <= 100; i++) {
             const square = document.createElement('div');
             square.classList.add('easy');
             square.append(i );
             containerCell.append(square)
 
-            // click-cambia-colore-blu
+            // click-cambia-colore
             square.addEventListener('click', function(){
-                if ( bomb.includes(i)){
-                    
-                 
-
+                
+                // controllo div del numero bomba con numero di i
+                if (bombEasy.includes(i)){
+                    for (let x = 0; x < 100; x++) {
+                        const bombe = document.querySelectorAll('.easy');
+                        if (bombEasy.includes(x + 1)){
+                            bombe[x].classList.add('red');   
+                        }
+                        containerCell.replaceChild(bombe[x].cloneNode(true), bombe[x]); 
+                    }
                 }else{
                     this.classList.add('blue');
                 }
@@ -66,6 +85,7 @@ button.addEventListener('click', function() {
         }
     // medium
     }else if( select.value == "medium"){
+        // pulizia della pagina html
         containerCell.innerHTML ='';
     
         for (let i = 1; i <= 81; i++) {
@@ -74,9 +94,20 @@ button.addEventListener('click', function() {
             square.append(i);
             containerCell.append(square);
 
-            // click-cambia-colore-blu
+            // click-cambia-colore
             square.addEventListener('click', function(){
-                this.classList.add('blue');
+                if ( bombMedium.includes(i)){
+                    for (let x = 0; x < 81; x++) {
+                        const bombe = document.querySelectorAll('.medium');
+                        if (bombMedium.includes(x + 1)){
+                            bombe[x].classList.add('red');   
+                        }
+                        containerCell.replaceChild(bombe[x].cloneNode(true), bombe[x]); 
+                    }
+                }else{
+                    this.classList.add('blue');
+                }
+                
             });
         
         
@@ -85,6 +116,7 @@ button.addEventListener('click', function() {
     // hard
 
     }else{
+        // pulizia della pagina html
         containerCell.innerHTML ='';
         for (let i = 1; i <= 49; i++) {
             const square = document.createElement('div');
@@ -92,12 +124,21 @@ button.addEventListener('click', function() {
             square.append(i);
             containerCell.append(square);
 
-            // click-cambia-colore-blu
+            // click-cambia-colore
             square.addEventListener('click', function(){
-                this.classList.add('blue');
-            });
-        
-            
+                if (bombHard.includes(i)){
+                    for (let x = 0; x < 49; x++) {
+                        const bombe = document.querySelectorAll('.hard');
+                        if (bombHard.includes(x + 1)){
+                            bombe[x].classList.add('red');   
+                        }
+                        containerCell.replaceChild(bombe[x].cloneNode(true), bombe[x]); 
+                    }
+                }else{
+                    this.classList.add('blue');
+                }
+                
+            });  
         }
     
     }
@@ -105,62 +146,6 @@ button.addEventListener('click', function() {
 });
 
 
-// function arrayNumber(numberQ) {
-
-//     let arr = [];
-//     while(arr.length < numberQ){
-//     let random = Math.floor(Math.random() * 100) + 1;
-//     if(arr.indexOf(random) === -1) arr.push(random);
-//     }
-//     console.log(arr);
-    
-//     return arr;
-// }
-
-
-// Esercizio-con-funzione
-
-// let button = document.querySelector('.controls  button');
-
-// button.addEventListener('click', function() {
-//     let numberEasy = 100;
-//     let numberMedium = 81;
-//     let numberHard = 49;
-//     let easy = "easy";
-//     let medium = "medium";
-//     let hard= "hard";
-//     const select = document.getElementById('level');
-
-//     function addDiv(number, level){
-//         let containerCell = document.querySelector('.container-cell');
-        
-        
-//         containerCell.innerHTML ='';
-
-//         for (let i = 1; i <= number; i++) {
-//             const square = document.createElement('div');
-//             square.classList.add(level);
-//             square.append(i);
-//             containerCell.append(square);
-
-//             // click-cambia-colore-blu
-//             square.addEventListener('click', function(){
-//                 this.classList.add('blue');
-//             });
-    
-//         }
-
-//     }
-
-//     if( select.value == "easy"){
-//         addDiv(numberEasy,easy);
-//     }else if( select.value == "medium"){
-//         addDiv(numberMedium,medium);
-//     }else{
-//         addDiv(numberHard,hard);
-//     }
-
-// });
 
 
 
