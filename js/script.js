@@ -37,6 +37,15 @@ function bombFunc(min, max) {
     return listNumbers;
 }
 
+
+
+function reload() {
+    document.location.reload();
+  }
+  
+  
+  
+
 // button
 
 button.addEventListener('click', function() {
@@ -47,6 +56,7 @@ button.addEventListener('click', function() {
     console.log("array easy " + bombEasy);
     console.log("array medium " + bombMedium );
     console.log("array hard " + bombHard);
+
     
     
     const select = document.getElementById('level');
@@ -72,11 +82,18 @@ button.addEventListener('click', function() {
                     for (let x = 0; x < 100; x++) {
                         const bombe = document.querySelectorAll('.easy');
                         if (bombEasy.includes(x + 1)){
+                            // colora il div di rosso
                             bombe[x].classList.add('red');   
                         }
-                        containerCell.replaceChild(bombe[x].cloneNode(true), bombe[x]); 
+                        containerCell.replaceChild(bombe[x].cloneNode(true), bombe[x]);  
+                        
                     }
+                    // alert + refresh automatico se perdi
+                    alert('hai perso'); 
+                    setTimeout(reload, 2000);
+
                 }else{
+                    // colora il div di blu
                     this.classList.add('blue');
                 }
                 
@@ -100,11 +117,16 @@ button.addEventListener('click', function() {
                     for (let x = 0; x < 81; x++) {
                         const bombe = document.querySelectorAll('.medium');
                         if (bombMedium.includes(x + 1)){
+                            // colora il div di rosso
                             bombe[x].classList.add('red');   
                         }
                         containerCell.replaceChild(bombe[x].cloneNode(true), bombe[x]); 
                     }
+                    // alert + refresh automatico se perdi
+                    alert('hai perso'); 
+                    setTimeout(reload, 2000);
                 }else{
+                    // colora il div di blu
                     this.classList.add('blue');
                 }
                 
@@ -130,11 +152,16 @@ button.addEventListener('click', function() {
                     for (let x = 0; x < 49; x++) {
                         const bombe = document.querySelectorAll('.hard');
                         if (bombHard.includes(x + 1)){
+                            // colora il div di rosso
                             bombe[x].classList.add('red');   
                         }
                         containerCell.replaceChild(bombe[x].cloneNode(true), bombe[x]); 
                     }
+                    // alert + refresh automatico se perdi
+                    alert('hai perso'); 
+                    setTimeout(reload, 2000);
                 }else{
+                    // colora il div di blu
                     this.classList.add('blue');
                 }
                 
